@@ -1177,7 +1177,7 @@ body.admin-mode>header,body.admin-mode>nav,body.admin-mode>footer,body.admin-mod
     <div class="btn-row">
       <a class="btn btn-primary magnetic" href="https://wa.me/923459027969?text=Assalam%20o%20Alaikum%2C%20I%20am%20looking%20for%20a%20vehicle%20part." target="_blank" rel="noopener"><svg class="i"><use href="#ic-wa"/></svg> WhatsApp Us</a>
       <a class="btn magnetic" href="tel:+923459027969"><svg class="i"><use href="#ic-phone"/></svg> Call +92 345 9027969</a>
-      <a class="btn magnetic" href="/cdn-cgi/l/email-protection#eca08d82888f9e99859f899e8f898298899edbdfac8b818d8580c28f8381"><svg class="i"><use href="#ic-mail"/></svg> Email Us</a>
+      <a class="btn magnetic" href="#" data-mail><svg class="i"><use href="#ic-mail"/></svg> Email Us</a>
       <a class="btn magnetic" href="https://www.facebook.com/share/14nhN11MRk8/" target="_blank" rel="noopener"><svg class="i"><use href="#ic-fb"/></svg> Facebook</a>
     </div>
   </div>
@@ -1198,7 +1198,7 @@ body.admin-mode>header,body.admin-mode>nav,body.admin-mode>footer,body.admin-mod
           <a class="soc" href="https://wa.me/923459027969" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg class="i"><use href="#ic-wa"/></svg></a>
           <a class="soc" href="https://www.facebook.com/share/14nhN11MRk8/" target="_blank" rel="noopener" aria-label="Facebook page"><svg class="i"><use href="#ic-fb"/></svg></a>
           <a class="soc" href="tel:+923459027969" aria-label="Call us"><svg class="i"><use href="#ic-phone"/></svg></a>
-          <a class="soc" href="/cdn-cgi/l/email-protection#99d5f8f7fdfaebecf0eafcebfafcf7edfcebaeaad9fef4f8f0f5b7faf6f4" aria-label="Email us"><svg class="i"><use href="#ic-mail"/></svg></a>
+          <a class="soc" href="#" data-mail aria-label="Email us"><svg class="i"><use href="#ic-mail"/></svg></a>
         </div>
       </div>
       <div>
@@ -1212,7 +1212,7 @@ body.admin-mode>header,body.admin-mode>nav,body.admin-mode>footer,body.admin-mod
         <p class="foot-h">Contact</p>
         <p>IJP Road, Kacha Stop, Shop No. 2, near Attack/Attock Petrol Pump, Rawalpindi, Pakistan</p>
         <a href="tel:+923459027969"><svg class="i"><use href="#ic-phone"/></svg><span>+92 345 9027969</span></a>
-        <a href="/cdn-cgi/l/email-protection#db97bab5bfb8a9aeb2a8bea9b8beb5afbea9ece89bbcb6bab2b7f5b8b4b6"><svg class="i"><use href="#ic-mail"/></svg><span><span class="__cf_email__" data-cfemail="a5e9c4cbc1c6d7d0ccd6c0d7c6c0cbd1c0d79296e5c2c8c4ccc98bc6cac8">[email&#160;protected]</span></span></a>
+        <a href="#" data-mail><svg class="i"><use href="#ic-mail"/></svg><span id="emTxt"></span></a>
       </div>
     </div>
     <div class="foot-bot">
@@ -1239,7 +1239,7 @@ body.admin-mode>header,body.admin-mode>nav,body.admin-mode>footer,body.admin-mod
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function(){
 'use strict';
 /* =========================================================
@@ -2088,6 +2088,7 @@ guard('misc',null,function(){
   if($('#partForm'))$('#partForm').addEventListener('submit',async function(e){e.preventDefault();if(!sb)return setMsg($('#partMsg'),'Configure Supabase first.',false);var msg=$('#partMsg'),btn=$('#partSave');btn.disabled=true;setMsg(msg,'Saving…',true);try{var files=Array.prototype.slice.call($('#partImages').files||[]),old=state.editing||null,newImgs=files.length?await uploadFiles(files):{urls:[],paths:[]};var payload={title:val('partTitle'),description:val('partDescription'),vehicle:val('partVehicle'),model:val('partModel'),series:val('partSeries'),chassis:val('partChassis'),category:val('partCategory'),condition:val('partCondition'),availability:val('partAvailability'),price:val('partPrice'),published:true};if(old){payload.images=files.length?newImgs.urls:imageUrls(old);payload.image_paths=files.length?newImgs.paths:(old.image_paths||[]);var r=await sb.from('gallery_items').update(payload).eq('id',old.id);if(r.error)throw r.error;if(files.length&&old.image_paths)await deleteFiles(old.image_paths)}else{if(!newImgs.urls.length)throw new Error('Select at least one image.');payload.images=newImgs.urls;payload.image_paths=newImgs.paths;var r2=await sb.from('gallery_items').insert(payload);if(r2.error)throw r2.error}setMsg(msg,'Saved successfully — live stock updated.',true);resetForm();await loadAdminItems();renderGallery();}catch(err){setMsg(msg,err.message||'Could not save item.',false)}finally{btn.disabled=false}});
   async function deleteItem(id){var x=state.items.find(function(i){return i.id===id});if(!x||!confirm('Delete this part permanently?'))return;var r=await sb.from('gallery_items').delete().eq('id',id);if(r.error){setMsg($('#partMsg'),r.error.message,false);return}if(x.image_paths)await deleteFiles(x.image_paths);await loadAdminItems()}
   if($('#adminLoginForm'))$('#adminLoginForm').addEventListener('submit',async function(e){e.preventDefault();if(!sb)return;var r=await sb.auth.signInWithPassword({email:val('adminEmail'),password:val('adminPassword')});if(r.error)return setMsg($('#adminLoginMsg'),r.error.message,false);await refreshAdmin()});
+  (function(){var m='landcruiser'+'center73'+'@'+'gmail'+'.com';var as=document.querySelectorAll('a[data-mail]');for(var i=0;i<as.length;i++)as[i].setAttribute('href','mailto:'+m);var t=document.getElementById('emTxt');if(t)t.textContent=m;})();
   if($('#adminLogout'))$('#adminLogout').onclick=async function(){if(sb)await sb.auth.signOut();refreshAdmin()};
   if(sb)sb.auth.onAuthStateChange(function(){refreshAdmin()});
   loadPublic();
@@ -2097,5 +2098,5 @@ guard('misc',null,function(){
 })();
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a31261c7ccbbddbf',t:'MTc4Nzc0MjU0Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
